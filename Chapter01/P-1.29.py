@@ -2,23 +2,23 @@
 # the characters c , a , t , d , o , and g exactly once.
 
 
-def permutations(iterable, ):
+def permutations(iterable):
     pool = tuple(iterable)
     n = len(pool)
-    r = n
     indices = list(range(n))   # 0,1,2,3,4,5
-    cycles = list(range(n, n-r, -1))  # 5,4,3,2,1,0
-    yield tuple(pool[i] for i in indices[:r])
+    cycles = list(range(n, 0, -1))  # 6,5,4,3,2,1
+    yield tuple(pool[i] for i in indices[:n])
     while n:
-        for i in reversed(range(r)):
+        for i in reversed(range(n)):
             cycles[i] -= 1
+            print(i)
             if cycles[i] == 0:
                 indices[i:] = indices[i+1:] + indices[i:i+1]
                 cycles[i] = n - i
             else:
                 j = cycles[i]
                 indices[i], indices[-j] = indices[-j], indices[i]
-                yield tuple(pool[i] for i in indices[:r])
+                yield tuple(pool[i] for i in indices[:n])
                 break
         else:
             return
